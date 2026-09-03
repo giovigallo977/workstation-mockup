@@ -86,7 +86,7 @@
           '<path d="'+path+'" fill="none" stroke="'+palette.trim+'" stroke-width="3"/>' +
         '</g>' +
         (showWordmark ? (
-          '<text x="100" y="'+(printY + printH/2 - 6)+'" text-anchor="middle" font-family="UnifrakturMaguntia, serif" font-size="18" fill="'+palette.ink+'">MH</text>' +
+          '<text x="100" y="'+(printY + printH/2 - 6)+'" text-anchor="middle" font-family="Oswald, sans-serif" font-style="italic" font-weight="700" font-size="16" fill="'+palette.ink+'">MH</text>' +
           '<text x="100" y="'+(printY + printH/2 + 14)+'" text-anchor="middle" font-family="Oswald, sans-serif" font-weight="700" font-style="italic" letter-spacing="1" font-size="10" fill="'+palette.ink+'">'+product.tag+'</text>'
         ) : "") +
       '</svg>'

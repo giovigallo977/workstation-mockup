@@ -9,8 +9,7 @@
   --mh-grey:#85878A;
   --mh-ice:#C8DDE3;
 
-  --mh-font-blackletter:'UnifrakturMaguntia', serif;
-  --mh-font-graffiti:'UnifrakturMaguntia', serif;
+  --mh-font-display:'Oswald', sans-serif;
   --mh-font-body:'Oswald', sans-serif;
 }
 
@@ -36,8 +35,8 @@ h1,h2,h3,h4,h5,h6{
 
 a{ color:inherit; text-decoration:none; }
 
-.text-graffiti{ font-family:var(--mh-font-graffiti); text-transform:none; letter-spacing:0; }
-.text-blackletter{ font-family:var(--mh-font-blackletter); text-transform:none; letter-spacing:0; }
+.text-graffiti{ font-family:var(--mh-font-display); font-style:italic; font-weight:600; text-transform:none; letter-spacing:0; }
+.text-blackletter{ font-family:var(--mh-font-display); font-style:italic; font-weight:600; text-transform:none; letter-spacing:0; }
 .text-ice{ color:var(--mh-ice) !important; }
 .text-grey{ color:var(--mh-grey) !important; }
 .bg-mh-black{ background-color:var(--mh-black) !important; }
@@ -153,7 +152,9 @@ a{ color:inherit; text-decoration:none; }
   display:flex;
   align-items:center;
   gap:.6rem;
-  font-family:var(--mh-font-blackletter);
+  font-family:var(--mh-font-display);
+  font-style:italic;
+  font-weight:600;
   color:var(--mh-white);
   font-size:1.7rem;
   line-height:1;
@@ -243,9 +244,11 @@ a{ color:inherit; text-decoration:none; }
   width:100%;
 }
 .mh-hero .hero-title{
-  font-family:var(--mh-font-blackletter);
-  font-size:clamp(3.4rem, 10vw, 8rem);
-  line-height:.9;
+  font-family:var(--mh-font-display);
+  font-style:italic;
+  font-weight:700;
+  font-size:clamp(3rem, 9vw, 7rem);
+  line-height:.95;
   color:var(--mh-white);
   text-shadow:0 6px 24px rgba(0,0,0,.6);
 }
@@ -293,8 +296,10 @@ a{ color:inherit; text-decoration:none; }
   padding:.9rem 1rem;
   background:linear-gradient(0deg, rgba(0,0,0,.85), transparent);
   color:var(--mh-white);
-  font-family:var(--mh-font-blackletter);
-  font-size:1.7rem;
+  font-family:var(--mh-font-display);
+  font-style:italic;
+  font-weight:600;
+  font-size:1.2rem;
   letter-spacing:.02em;
 }
 
@@ -387,7 +392,9 @@ a{ color:inherit; text-decoration:none; }
 }
 .brand-statement .halftone-bg{ opacity:.25; }
 .brand-statement blockquote{
-  font-family:var(--mh-font-graffiti);
+  font-family:var(--mh-font-display);
+  font-style:italic;
+  font-weight:500;
   font-size:clamp(1.8rem,4vw,3.2rem);
   line-height:1.25;
   max-width:900px;
@@ -395,7 +402,9 @@ a{ color:inherit; text-decoration:none; }
   color:var(--mh-white);
 }
 .brand-statement .quote-mark{
-  font-family:var(--mh-font-graffiti);
+  font-family:var(--mh-font-display);
+  font-style:italic;
+  font-weight:600;
   font-size:5rem;
   color:var(--mh-ice);
   line-height:.5;
@@ -429,7 +438,9 @@ a{ color:inherit; text-decoration:none; }
   display:flex;
   align-items:center;
   gap:.7rem;
-  font-family:var(--mh-font-blackletter);
+  font-family:var(--mh-font-display);
+  font-style:italic;
+  font-weight:600;
   font-size:1.9rem;
 }
 .mh-footer .footer-logo img{
@@ -492,7 +503,9 @@ a{ color:inherit; text-decoration:none; }
 }
 .page-header .halftone-bg{ opacity:.25; }
 .page-header h1{
-  font-family:var(--mh-font-graffiti);
+  font-family:var(--mh-font-display);
+  font-style:italic;
+  font-weight:700;
   text-transform:none;
   font-size:clamp(2.4rem,6vw,4.2rem);
 }
@@ -575,7 +588,9 @@ a{ color:inherit; text-decoration:none; }
   background:var(--mh-ice); border:2px solid var(--mh-black);
 }
 .timeline-item .year{
-  font-family:var(--mh-font-graffiti);
+  font-family:var(--mh-font-display);
+  font-style:italic;
+  font-weight:700;
   font-size:1.5rem;
   color:var(--mh-black);
 }
