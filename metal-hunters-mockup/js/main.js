@@ -294,47 +294,21 @@
    * 7. PARALLAX (Rellax if present, otherwise manual scroll fallback)
    * ------------------------------------------------------------------ */
   function initParallax(){
+    var isSmall = window.innerWidth < 768;
     var prefersReduced = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
     if (prefersReduced) return;
 
-    var isSmall = window.innerWidth < 768;
-    var heroFactor = isSmall ? 0.15 : 0.35;
-    var bgFactor = isSmall ? 0.08 : 0.18;
-
-    if (window.Rellax){
-      try{ new window.Rellax(".rellax", { speed: -2, center: false, mobile: true }); }catch(e){}
+    if (window.Rellax && !isSmall){
+      try{ new window.Rellax(".rellax", { speed: -2, center: false }); }catch(e){}
     }
 
     var heroImgs = document.querySelectorAll(".hero-bg");
-    var bgSections = document.querySelectorAll(".brand-statement");
-    if (!heroImgs.length && !bgSections.length) return;
-
-    var ticking = false;
-    function update(){
-      var scrollY = window.scrollY;
-      heroImgs.forEach(function(img){
-        img.style.transform = "translateY(" + (scrollY * heroFactor) + "px)";
-      });
-      bgSections.forEach(function(sec){
-        var rect = sec.getBoundingClientRect();
-        var offset = rect.top * bgFactor;
-        sec.style.backgroundPosition = "center calc(50% + " + offset + "px)";
-      });
-      ticking = false;
+    if (heroImgs.length && !isSmall){
+      window.addEventListener("scroll", function(){
+        var offset = window.scrollY * 0.35;
+        heroImgs.forEach(function(img){ img.style.transform = "translateY(" + offset + "px)"; });
+      }, { passive:true });
     }
-    function onScroll(){
-      if (!ticking){
-        window.requestAnimationFrame(update);
-        ticking = true;
-      }
-    }
-    update();
-    window.addEventListener("scroll", onScroll, { passive:true });
-    window.addEventListener("resize", function(){
-      isSmall = window.innerWidth < 768;
-      heroFactor = isSmall ? 0.15 : 0.35;
-      bgFactor = isSmall ? 0.08 : 0.18;
-    }, { passive:true });
   }
 
   /* ------------------------------------------------------------------ *
