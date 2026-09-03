@@ -141,6 +141,14 @@ a{ color:inherit; text-decoration:none; }
   background:rgba(10,10,10,.97);
   box-shadow:0 8px 24px rgba(0,0,0,.35);
 }
+/* Belt-and-suspenders: force the same solid backdrop purely via CSS
+   whenever Bootstrap's own classes mark the collapse as open/opening,
+   independent of the JS listener above. */
+.mh-navbar:has(.navbar-collapse.show),
+.mh-navbar:has(.navbar-collapse.collapsing){
+  background:rgba(10,10,10,.97) !important;
+  box-shadow:0 8px 24px rgba(0,0,0,.35);
+}
 .mh-navbar .navbar-brand{
   display:flex;
   align-items:center;

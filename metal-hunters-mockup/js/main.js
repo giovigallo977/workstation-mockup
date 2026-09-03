@@ -269,6 +269,11 @@
   function initNavbarScroll(){
     var nav = document.querySelector(".mh-navbar");
     if (!nav) return;
+    var hasHero = !!document.querySelector(".mh-hero");
+    if (!hasHero){
+      nav.classList.add("scrolled");
+      return;
+    }
     function update(){
       if (window.scrollY > 60) nav.classList.add("scrolled");
       else nav.classList.remove("scrolled");
