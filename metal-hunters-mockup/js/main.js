@@ -10,12 +10,12 @@
    * 1. PRODUCT CATALOG
    * ------------------------------------------------------------------ */
   var PRODUCTS = [
-    { id:1,  name:"Xerox Riot Tee",          price:34.90, category:"tshirt",   type:"tee",    fit:"black",  badge:"New",     tag:"RIOT",     desc:"T-shirt in cotone pesante 220gsm con stampa fotocopiata a fuoco diretto sul petto. Ispirata ai black book dei writer, taglio dritto, orlo grezzo." },
+    { id:1,  name:"Xerox Riot Tee",          price:34.90, category:"tshirt",   type:"tee",    fit:"black",  badge:"New",     tag:"RIOT",     photo:"assets/product-europeloves-tee.jpg", desc:"T-shirt in cotone pesante 220gsm con stampa fotocopiata a fuoco diretto sul retro. Ispirata ai black book dei writer, taglio dritto, orlo grezzo." },
     { id:2,  name:"Halftone Bomber Tee",     price:36.90, category:"tshirt",   type:"tee",    fit:"white",  badge:"Limited", tag:"BOMBER",   desc:"Stampa a retino halftone ad alto contrasto su base bianca sporca. Drop limitato, numerato sul collo interno." },
-    { id:3,  name:"Freight Line Tee",        price:32.90, category:"tshirt",   type:"tee",    fit:"black",  badge:"",        tag:"FREIGHT",  desc:"Dedicata ai treni merci bombardati. Cotone organico, vestibilità oversize, stampa screen print opaca." },
+    { id:3,  name:"Freight Line Tee",        price:32.90, category:"tshirt",   type:"tee",    fit:"white",  badge:"",        tag:"FREIGHT",  photo:"assets/product-freight-tee.jpg", desc:"Dedicata ai treni merci bombardati. Cotone organico, vestibilità oversize, stampa screen print opaca." },
     { id:4,  name:"Blackbook Tee",           price:34.90, category:"tshirt",   type:"tee",    fit:"white",  badge:"New",     tag:"BLACKBOOK",desc:"Grafica ispirata alle pagine dei blackbook, texture carta e inchiostro. Cotone 100% pettinato." },
     { id:5,  name:"Toy vs King Tee",         price:33.90, category:"tshirt",   type:"tee",    fit:"grey",   badge:"",        tag:"TOY/KING", desc:"Stampa doppia fronte/retro, grigio cemento. Per chi lo sa: dal toy al king." },
-    { id:6,  name:"All City Tee",            price:35.90, category:"tshirt",   type:"tee",    fit:"black",  badge:"Limited", tag:"ALL CITY", desc:"Serigrafia a due colori, ispirazione tag da metropolitana. Edizione limitata a 200 pezzi." },
+    { id:6,  name:"All City Tee",            price:35.90, category:"tshirt",   type:"tee",    fit:"black",  badge:"Limited", tag:"ALL CITY", photo:"assets/product-allcity-tee.jpg", desc:"Serigrafia a due colori, ispirazione tag da metropolitana. Edizione limitata a 200 pezzi." },
     { id:7,  name:"Yard Runner Hoodie",      price:64.90, category:"hoodie",   type:"hoodie", fit:"black",  badge:"New",     tag:"YARD",     desc:"Felpa pesante 320gsm con cappuccio foderato, stampa gommata sul petto. Fondo notturno da deposito treni." },
     { id:8,  name:"Fat Cap Hoodie",          price:69.90, category:"hoodie",   type:"hoodie", fit:"grey",   badge:"Limited", tag:"FAT CAP",  desc:"Hoodie unisex, tasca marsupio, stampa a retino sulla schiena in stile poster fotocopiato." },
     { id:9,  name:"Ghost Train Hoodie",      price:66.90, category:"hoodie",   type:"hoodie", fit:"black",  badge:"",        tag:"GHOST",    desc:"Silhouette oversize, coulisse piatte, grafica treno fantasma in negativo." },
@@ -103,13 +103,20 @@
     return '<span class="card-badge" style="background:'+bg+';color:'+color+';">'+badge+'</span>';
   }
 
+  function cardMediaHTML(product){
+    if (product.photo){
+      return '<img src="'+product.photo+'" alt="'+product.name+'" loading="lazy">';
+    }
+    return garmentSVG(product);
+  }
+
   function productCardHTML(product){
     return (
       '<div class="col-6 col-md-4 col-lg-3">' +
         '<a class="product-card-link" href="product.html?id='+product.id+'">' +
           '<div class="product-card">' +
             badgeMarkup(product.badge) +
-            '<div class="card-media">'+ garmentSVG(product) +'</div>' +
+            '<div class="card-media">'+ cardMediaHTML(product) +'</div>' +
             '<div class="card-body">' +
               '<div class="product-cat">'+ categoryLabel(product.category) +'</div>' +
               '<div class="product-name">'+ product.name +'</div>' +
@@ -390,16 +397,33 @@
     document.title = product.name + " — METAL HUNTERS";
 
     var galleryEl = document.getElementById("productGalleryInner");
+    var indicatorsEl = document.getElementById("productCarouselIndicators");
     if (galleryEl){
-      var slides = [product.fit, "black", "white"].filter(function(v,i,a){ return a.indexOf(v)===i; });
-      galleryEl.innerHTML = slides.map(function(fit, i){
+      var slidesHTML = [];
+      if (product.photo){
+        slidesHTML.push(
+          '<div class="carousel-item active">' +
+            '<div class="media-box"><img src="'+product.photo+'" alt="'+product.name+'" style="width:100%;height:100%;object-fit:cover;"></div>' +
+          '</div>'
+        );
+      }
+      var fits = [product.fit, "black", "white"].filter(function(v,i,a){ return a.indexOf(v)===i; });
+      fits.forEach(function(fit, i){
         var fakeProd = Object.assign({}, product, { fit: fit });
-        return (
-          '<div class="carousel-item '+(i===0 ? "active" : "")+'">' +
+        var isActive = !product.photo && i === 0;
+        slidesHTML.push(
+          '<div class="carousel-item '+(isActive ? "active" : "")+'">' +
             '<div class="media-box d-flex align-items-center justify-content-center">' + garmentSVG(fakeProd) + '</div>' +
           '</div>'
         );
-      }).join("");
+      });
+      galleryEl.innerHTML = slidesHTML.join("");
+
+      if (indicatorsEl){
+        indicatorsEl.innerHTML = slidesHTML.map(function(_, i){
+          return '<button type="button" data-bs-target="#productCarousel" data-bs-slide-to="'+i+'" class="'+(i===0 ? "active" : "")+'" aria-current="'+(i===0 ? "true" : "false")+'"></button>';
+        }).join("");
+      }
     }
 
     var nameEl = document.getElementById("productName");
