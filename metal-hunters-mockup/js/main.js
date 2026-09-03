@@ -277,6 +277,14 @@
     window.addEventListener("scroll", update, { passive:true });
   }
 
+  function initMobileMenuBackground(){
+    var nav = document.querySelector(".mh-navbar");
+    var collapseEl = document.getElementById("mhNav");
+    if (!nav || !collapseEl) return;
+    collapseEl.addEventListener("show.bs.collapse", function(){ nav.classList.add("menu-open"); });
+    collapseEl.addEventListener("hidden.bs.collapse", function(){ nav.classList.remove("menu-open"); });
+  }
+
   /* ------------------------------------------------------------------ *
    * 7. PARALLAX (Rellax if present, otherwise manual scroll fallback)
    * ------------------------------------------------------------------ */
@@ -476,6 +484,7 @@
    * ------------------------------------------------------------------ */
   document.addEventListener("DOMContentLoaded", function(){
     initNavbarScroll();
+    initMobileMenuBackground();
     initParallax();
     initImageFallback();
     initReviewsToggle();
